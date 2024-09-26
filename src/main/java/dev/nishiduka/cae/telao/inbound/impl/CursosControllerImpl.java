@@ -3,31 +3,45 @@ package dev.nishiduka.cae.telao.inbound.impl;
 import dev.nishiduka.cae.telao.core.domain.dtos.CursoDTO;
 import dev.nishiduka.cae.telao.core.domain.dtos.ResponseGenericDTO;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityNotFoundException;
-import dev.nishiduka.cae.telao.inbound.ICursosController;
-import dev.nishiduka.cae.telao.outbound.ICursoService;
-import dev.nishiduka.cae.telao.outbound.impl.CursoService;
+import dev.nishiduka.cae.telao.inbound.CursosController;
+import dev.nishiduka.cae.telao.outbound.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/cursos")
-public class CursosController implements ICursosController {
+public class CursosControllerImpl implements CursosController {
 
     @Autowired
     private CursoService cursoService;
 
     @GetMapping
-    public ResponseEntity<? extends ResponseGenericDTO> listarCursos() {
+    public ResponseEntity<? extends ResponseGenericDTO> listar() {
         return ResponseEntity.ok(
                 new ResponseGenericDTO("Curso criado com sucesso", cursoService.listarTodos(), true)
         );
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<? extends ResponseGenericDTO> filtrarId(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(
+                    new ResponseGenericDTO("Curso encontrado com sucesso", cursoService.filtrarPorId(id), true)
+            );
+        } catch(EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(
+                    new ResponseGenericDTO("Curso nao encontrado", null, false)
+            );
+        } catch(Exception ex) {
+            return ResponseEntity.internalServerError().body(
+                    new ResponseGenericDTO("Erro: " + ex.getMessage(), null, false)
+            );
+        }
+    }
+
     @PostMapping
-    public ResponseEntity<? extends ResponseGenericDTO> criarCurso(@RequestBody CursoDTO cursoDTO) {
+    public ResponseEntity<? extends ResponseGenericDTO> criar(@RequestBody CursoDTO cursoDTO) {
         try {
             CursoDTO curso = cursoService.salvar(cursoDTO);
             return ResponseEntity.ok(
@@ -46,7 +60,7 @@ public class CursosController implements ICursosController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<? extends ResponseGenericDTO> updateCurso(@RequestBody CursoDTO cursoDTO, @PathVariable Long id) {
+    public ResponseEntity<? extends ResponseGenericDTO> update(@RequestBody CursoDTO cursoDTO, @PathVariable Long id) {
         try {
             CursoDTO curso = cursoService.update(cursoDTO, id);
 
@@ -65,7 +79,7 @@ public class CursosController implements ICursosController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<? extends ResponseGenericDTO> deleteCurso(@PathVariable Long id) {
+    public ResponseEntity<? extends ResponseGenericDTO> delete(@PathVariable Long id) {
         try {
             cursoService.delete(id);
 
