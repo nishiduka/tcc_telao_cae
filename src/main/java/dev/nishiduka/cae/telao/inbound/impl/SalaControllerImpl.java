@@ -19,7 +19,7 @@ public class SalaControllerImpl implements SalaController {
     @GetMapping
     public ResponseEntity<? extends ResponseGenericDTO> listar() {
         return ResponseEntity.ok(
-                new ResponseGenericDTO("Sala criado com sucesso", service.listarTodos(), true)
+                new ResponseGenericDTO("Sala listado com sucesso", service.listarTodos(), true)
         );
     }
 

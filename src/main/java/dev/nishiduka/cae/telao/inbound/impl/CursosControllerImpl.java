@@ -19,7 +19,7 @@ public class CursosControllerImpl implements CursosController {
     @GetMapping
     public ResponseEntity<? extends ResponseGenericDTO> listar() {
         return ResponseEntity.ok(
-                new ResponseGenericDTO("Curso criado com sucesso", cursoService.listarTodos(), true)
+                new ResponseGenericDTO("Curso listado com sucesso", cursoService.listarTodos(), true)
         );
     }
 

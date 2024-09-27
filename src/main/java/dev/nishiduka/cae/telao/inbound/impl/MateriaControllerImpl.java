@@ -19,7 +19,7 @@ public class MateriaControllerImpl implements MateriaController {
     @GetMapping
     public ResponseEntity<? extends ResponseGenericDTO> listar() {
         return ResponseEntity.ok(
-                new ResponseGenericDTO("Materia criado com sucesso", Service.listarTodos(), true)
+                new ResponseGenericDTO("Materia listado com sucesso", Service.listarTodos(), true)
         );
     }
 

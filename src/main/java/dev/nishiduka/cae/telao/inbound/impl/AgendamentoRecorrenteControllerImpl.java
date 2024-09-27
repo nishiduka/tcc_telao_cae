@@ -1,25 +1,25 @@
 package dev.nishiduka.cae.telao.inbound.impl;
 
 import dev.nishiduka.cae.telao.core.domain.dtos.ResponseGenericDTO;
-import dev.nishiduka.cae.telao.core.domain.dtos.ProfessorDTO;
+import dev.nishiduka.cae.telao.core.domain.dtos.AgendamentoRecorrenteDTO;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityNotFoundException;
-import dev.nishiduka.cae.telao.inbound.ProfessorController;
-import dev.nishiduka.cae.telao.outbound.ProfessorService;
+import dev.nishiduka.cae.telao.inbound.AgendamentoRecorrenteController;
+import dev.nishiduka.cae.telao.outbound.AgendamentoRecorrenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/professores")
-public class ProfessorControllerImpl implements ProfessorController {
+@RequestMapping("/api/agendamentos-recorrentes")
+public class AgendamentoRecorrenteControllerImpl implements AgendamentoRecorrenteController {
 
     @Autowired
-    private ProfessorService service;
+    private AgendamentoRecorrenteService service;
 
     @GetMapping
     public ResponseEntity<? extends ResponseGenericDTO> listar() {
         return ResponseEntity.ok(
-                new ResponseGenericDTO("Professor listado com sucesso", service.listarTodos(), true)
+                new ResponseGenericDTO("Agendamento listado com sucesso", service.listarTodos(), true)
         );
     }
 
@@ -27,11 +27,11 @@ public class ProfessorControllerImpl implements ProfessorController {
     public ResponseEntity<? extends ResponseGenericDTO> filtrarId(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(
-                    new ResponseGenericDTO("Professor encontrado com sucesso", service.filtrarPorId(id), true)
+                    new ResponseGenericDTO("Agendamento encontrado com sucesso", service.filtrarPorId(id), true)
             );
         } catch(EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(
-                    new ResponseGenericDTO("Professor nao encontrado", null, false)
+                    new ResponseGenericDTO("Agendamento nao encontrado", null, false)
             );
         } catch(Exception ex) {
             return ResponseEntity.internalServerError().body(
@@ -41,15 +41,15 @@ public class ProfessorControllerImpl implements ProfessorController {
     }
 
     @PostMapping
-    public ResponseEntity<? extends ResponseGenericDTO> criar(@RequestBody ProfessorDTO professorDTO) {
+    public ResponseEntity<? extends ResponseGenericDTO> criar(@RequestBody AgendamentoRecorrenteDTO agendamento) {
         try {
-            ProfessorDTO data = service.salvar(professorDTO);
+            AgendamentoRecorrenteDTO curso = service.salvar(agendamento);
             return ResponseEntity.ok(
-                    new ResponseGenericDTO("Professor criado com sucesso", data, true)
+                    new ResponseGenericDTO("Agendamento criado com sucesso", curso, true)
             );
         } catch(EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(
-                    new ResponseGenericDTO("Professor nao encontrado", null, false)
+                    new ResponseGenericDTO("Agendamento nao encontrado", null, false)
             );
         } catch(Exception ex) {
             return ResponseEntity.internalServerError().body(
@@ -60,16 +60,16 @@ public class ProfessorControllerImpl implements ProfessorController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<? extends ResponseGenericDTO> update(@RequestBody ProfessorDTO professorDTO, @PathVariable Long id) {
+    public ResponseEntity<? extends ResponseGenericDTO> update(@RequestBody AgendamentoRecorrenteDTO agendamento, @PathVariable Long id) {
         try {
-            ProfessorDTO data = service.update(professorDTO, id);
+            AgendamentoRecorrenteDTO curso = service.update(agendamento, id);
 
             return ResponseEntity.ok(
-                    new ResponseGenericDTO("Professor atualizado com sucesso", data, true)
+                    new ResponseGenericDTO("Agendamento atualizado com sucesso", curso, true)
             );
         } catch(EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(
-                    new ResponseGenericDTO("Professor nao encontrado", null, false)
+                    new ResponseGenericDTO("Agendamento nao encontrado", null, false)
             );
         } catch(Exception ex) {
             return ResponseEntity.internalServerError().body(
@@ -84,11 +84,11 @@ public class ProfessorControllerImpl implements ProfessorController {
             service.delete(id);
 
             return ResponseEntity.ok(
-                    new ResponseGenericDTO("Professor removido com sucesso", null, true)
+                    new ResponseGenericDTO("Agendamento removido com sucesso", null, true)
             );
         } catch(EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(
-                    new ResponseGenericDTO("Professor nao encontrado", null, false)
+                    new ResponseGenericDTO("Agendamento nao encontrado", null, false)
             );
         } catch(Exception ex) {
             return ResponseEntity.internalServerError().body(
