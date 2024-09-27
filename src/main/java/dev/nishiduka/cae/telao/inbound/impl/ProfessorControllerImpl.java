@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/professores")
+@RequestMapping("/api/professores")
 public class ProfessorControllerImpl implements ProfessorController {
 
     @Autowired

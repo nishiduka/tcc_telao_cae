@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/salas")
+@RequestMapping("/api/salas")
 public class SalaControllerImpl implements SalaController {
 
     @Autowired
