@@ -2,6 +2,7 @@ package dev.nishiduka.cae.telao.inbound.impl;
 
 import dev.nishiduka.cae.telao.core.domain.dtos.ResponseGenericDTO;
 import dev.nishiduka.cae.telao.core.domain.dtos.AgendamentoRecorrenteDTO;
+import dev.nishiduka.cae.telao.core.domain.exceptions.EntityAlreadyExistsException;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityNotFoundException;
 import dev.nishiduka.cae.telao.inbound.AgendamentoRecorrenteController;
 import dev.nishiduka.cae.telao.outbound.AgendamentoRecorrenteService;
@@ -51,6 +52,10 @@ public class AgendamentoRecorrenteControllerImpl implements AgendamentoRecorrent
             return ResponseEntity.badRequest().body(
                     new ResponseGenericDTO("Agendamento nao encontrado", null, false)
             );
+        } catch(EntityAlreadyExistsException e) {
+            return ResponseEntity.badRequest().body(
+                    new ResponseGenericDTO("Ja existe agendamento neste horário", null, false)
+            );
         } catch(Exception ex) {
             return ResponseEntity.internalServerError().body(
                     new ResponseGenericDTO("Erro: " + ex.getMessage(), null, false)
@@ -70,6 +75,10 @@ public class AgendamentoRecorrenteControllerImpl implements AgendamentoRecorrent
         } catch(EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(
                     new ResponseGenericDTO("Agendamento nao encontrado", null, false)
+            );
+        } catch(EntityAlreadyExistsException e) {
+            return ResponseEntity.badRequest().body(
+                    new ResponseGenericDTO("Ja existe agendamento neste horário", null, false)
             );
         } catch(Exception ex) {
             return ResponseEntity.internalServerError().body(
