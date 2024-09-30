@@ -1,5 +1,6 @@
 package dev.nishiduka.cae.telao.core.domain.dtos;
 
+import dev.nishiduka.cae.telao.core.domain.enums.EDiaSemana;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,15 +34,15 @@ public class AgendamentoRecorrenteDTO {
 
     @ManyToOne
     @JoinColumn(name = "professor_id")
-    private ProfessorDTO professor;
+    private ProfessorEntity professor;
 
     @ManyToOne
     @JoinColumn(name = "materia_id")
-    private MateriaDTO materia;
+    private MateriaEntity materia;
 
     @ManyToOne
     @JoinColumn(name = "sala_id")
-    private SalaDTO sala;
+    private SalaEntity sala;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

@@ -1,10 +1,11 @@
 package dev.nishiduka.cae.telao.inbound.impl;
 
-import dev.nishiduka.cae.telao.core.domain.dtos.CursoDTO;
+import dev.nishiduka.cae.telao.core.domain.dtos.CursoEntity;
 import dev.nishiduka.cae.telao.core.domain.dtos.ResponseGenericDTO;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityNotFoundException;
 import dev.nishiduka.cae.telao.inbound.CursosController;
 import dev.nishiduka.cae.telao.outbound.CursoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,9 +42,9 @@ public class CursosControllerImpl implements CursosController {
     }
 
     @PostMapping
-    public ResponseEntity<? extends ResponseGenericDTO> criar(@RequestBody CursoDTO cursoDTO) {
+    public ResponseEntity<? extends ResponseGenericDTO> criar(@Valid @RequestBody CursoEntity cursoEntity) {
         try {
-            CursoDTO curso = cursoService.salvar(cursoDTO);
+            CursoEntity curso = cursoService.salvar(cursoEntity);
             return ResponseEntity.ok(
                     new ResponseGenericDTO("Curso criado com sucesso", curso, true)
             );
@@ -60,9 +61,9 @@ public class CursosControllerImpl implements CursosController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<? extends ResponseGenericDTO> update(@RequestBody CursoDTO cursoDTO, @PathVariable Long id) {
+    public ResponseEntity<? extends ResponseGenericDTO> update(@Valid @RequestBody CursoEntity cursoEntity, @PathVariable Long id) {
         try {
-            CursoDTO curso = cursoService.update(cursoDTO, id);
+            CursoEntity curso = cursoService.update(cursoEntity, id);
 
             return ResponseEntity.ok(
                     new ResponseGenericDTO("Curso atualizado com sucesso", curso, true)

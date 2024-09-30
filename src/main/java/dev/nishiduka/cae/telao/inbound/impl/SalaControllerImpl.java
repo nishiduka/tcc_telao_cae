@@ -1,10 +1,11 @@
 package dev.nishiduka.cae.telao.inbound.impl;
 
-import dev.nishiduka.cae.telao.core.domain.dtos.SalaDTO;
+import dev.nishiduka.cae.telao.core.domain.dtos.SalaEntity;
 import dev.nishiduka.cae.telao.core.domain.dtos.ResponseGenericDTO;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityNotFoundException;
 import dev.nishiduka.cae.telao.inbound.SalaController;
 import dev.nishiduka.cae.telao.outbound.SalaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,9 +42,9 @@ public class SalaControllerImpl implements SalaController {
     }
 
     @PostMapping
-    public ResponseEntity<? extends ResponseGenericDTO> criar(@RequestBody SalaDTO salaDTO) {
+    public ResponseEntity<? extends ResponseGenericDTO> criar(@Valid @RequestBody SalaEntity salaEntity) {
         try {
-            SalaDTO curso = service.salvar(salaDTO);
+            SalaEntity curso = service.salvar(salaEntity);
             return ResponseEntity.ok(
                     new ResponseGenericDTO("Sala criado com sucesso", curso, true)
             );
@@ -60,9 +61,9 @@ public class SalaControllerImpl implements SalaController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<? extends ResponseGenericDTO> update(@RequestBody SalaDTO salaDTO, @PathVariable Long id) {
+    public ResponseEntity<? extends ResponseGenericDTO> update(@Valid @RequestBody SalaEntity salaEntity, @PathVariable Long id) {
         try {
-            SalaDTO curso = service.update(salaDTO, id);
+            SalaEntity curso = service.update(salaEntity, id);
 
             return ResponseEntity.ok(
                     new ResponseGenericDTO("Sala atualizado com sucesso", curso, true)

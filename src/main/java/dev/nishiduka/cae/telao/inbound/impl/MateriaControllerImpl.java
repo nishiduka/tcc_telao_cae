@@ -1,10 +1,11 @@
 package dev.nishiduka.cae.telao.inbound.impl;
 
-import dev.nishiduka.cae.telao.core.domain.dtos.MateriaDTO;
+import dev.nishiduka.cae.telao.core.domain.dtos.MateriaEntity;
 import dev.nishiduka.cae.telao.core.domain.dtos.ResponseGenericDTO;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityNotFoundException;
 import dev.nishiduka.cae.telao.inbound.MateriaController;
 import dev.nishiduka.cae.telao.outbound.MateriaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,9 +42,9 @@ public class MateriaControllerImpl implements MateriaController {
     }
 
     @PostMapping
-    public ResponseEntity<? extends ResponseGenericDTO> criar(@RequestBody MateriaDTO materiaDTO) {
+    public ResponseEntity<? extends ResponseGenericDTO> criar(@Valid @RequestBody MateriaEntity materiaEntity) {
         try {
-            MateriaDTO curso = Service.salvar(materiaDTO);
+            MateriaEntity curso = Service.salvar(materiaEntity);
             return ResponseEntity.ok(
                     new ResponseGenericDTO("Materia criado com sucesso", curso, true)
             );
@@ -60,9 +61,9 @@ public class MateriaControllerImpl implements MateriaController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<? extends ResponseGenericDTO> update(@RequestBody MateriaDTO materiaDTO, @PathVariable Long id) {
+    public ResponseEntity<? extends ResponseGenericDTO> update(@Valid @RequestBody MateriaEntity materiaEntity, @PathVariable Long id) {
         try {
-            MateriaDTO curso = Service.update(materiaDTO, id);
+            MateriaEntity curso = Service.update(materiaEntity, id);
 
             return ResponseEntity.ok(
                     new ResponseGenericDTO("Materia atualizado com sucesso", curso, true)

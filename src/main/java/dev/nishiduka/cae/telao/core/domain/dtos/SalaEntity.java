@@ -11,18 +11,20 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Entity
-@Table(name = "materias")
-public class MateriaDTO {
+@Table(name = "salas")
+public class SalaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
-    private String sigla;
+    private String descricao;
 
-    @ManyToOne
-    @JoinColumn(name = "curso_id")
-    private CursoDTO curso;
+    @Column(name="qtd_computadores")
+    private Integer qtdComputadores;
+
+    @Column(name="qtd_alunos")
+    private Integer qtdAlunos;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

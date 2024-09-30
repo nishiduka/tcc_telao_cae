@@ -1,6 +1,6 @@
 package dev.nishiduka.cae.telao.outbound.impl;
 
-import dev.nishiduka.cae.telao.core.domain.dtos.CursoDTO;
+import dev.nishiduka.cae.telao.core.domain.dtos.CursoEntity;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityNotFoundException;
 import dev.nishiduka.cae.telao.core.repository.CursoRepository;
 import dev.nishiduka.cae.telao.outbound.CursoService;
@@ -15,29 +15,29 @@ public class CursoServiceImpl implements CursoService {
     @Autowired
     private CursoRepository cursoRepository;
 
-    public List<CursoDTO> listarTodos() {
+    public List<CursoEntity> listarTodos() {
         return cursoRepository.findAll();
     }
 
-    public CursoDTO filtrarPorId(Long id) {
+    public CursoEntity filtrarPorId(Long id) {
         return cursoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Curso nao encontrado"));
     }
 
-    public CursoDTO salvar(CursoDTO cursoDTO) {
-        return cursoRepository.save(cursoDTO);
+    public CursoEntity salvar(CursoEntity cursoEntity) {
+        return cursoRepository.save(cursoEntity);
     }
 
-    public CursoDTO update(CursoDTO cursoDTO, Long id) {
-        CursoDTO curso = cursoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Curso nao encontrado"));
+    public CursoEntity update(CursoEntity cursoEntity, Long id) {
+        CursoEntity curso = cursoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Curso nao encontrado"));
 
-        curso.setNome(cursoDTO.getNome());
-        curso.setSigla(cursoDTO.getSigla());
+        curso.setNome(cursoEntity.getNome());
+        curso.setSigla(cursoEntity.getSigla());
 
         return salvar(curso);
     }
 
     public void delete(Long id) {
-        CursoDTO curso = cursoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Curso nao encontrado"));
+        CursoEntity curso = cursoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Curso nao encontrado"));
 
         cursoRepository.delete(curso);
     }

@@ -6,6 +6,7 @@ import dev.nishiduka.cae.telao.core.domain.exceptions.EntityAlreadyExistsExcepti
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityNotFoundException;
 import dev.nishiduka.cae.telao.inbound.AgendamentoRecorrenteController;
 import dev.nishiduka.cae.telao.outbound.AgendamentoRecorrenteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +43,7 @@ public class AgendamentoRecorrenteControllerImpl implements AgendamentoRecorrent
     }
 
     @PostMapping
-    public ResponseEntity<? extends ResponseGenericDTO> criar(@RequestBody AgendamentoRecorrenteDTO agendamento) {
+    public ResponseEntity<? extends ResponseGenericDTO> criar(@Valid @RequestBody AgendamentoRecorrenteDTO agendamento) {
         try {
             AgendamentoRecorrenteDTO curso = service.salvar(agendamento);
             return ResponseEntity.ok(
@@ -65,7 +66,7 @@ public class AgendamentoRecorrenteControllerImpl implements AgendamentoRecorrent
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<? extends ResponseGenericDTO> update(@RequestBody AgendamentoRecorrenteDTO agendamento, @PathVariable Long id) {
+    public ResponseEntity<? extends ResponseGenericDTO> update(@Valid @RequestBody AgendamentoRecorrenteDTO agendamento, @PathVariable Long id) {
         try {
             AgendamentoRecorrenteDTO curso = service.update(agendamento, id);
 

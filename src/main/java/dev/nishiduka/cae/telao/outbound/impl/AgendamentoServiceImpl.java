@@ -6,8 +6,6 @@ import dev.nishiduka.cae.telao.outbound.AgendamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class AgendamentoServiceImpl implements AgendamentoService {
 

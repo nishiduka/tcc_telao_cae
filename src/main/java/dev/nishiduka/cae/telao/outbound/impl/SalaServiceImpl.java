@@ -1,6 +1,6 @@
 package dev.nishiduka.cae.telao.outbound.impl;
 
-import dev.nishiduka.cae.telao.core.domain.dtos.SalaDTO;
+import dev.nishiduka.cae.telao.core.domain.dtos.SalaEntity;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityNotFoundException;
 import dev.nishiduka.cae.telao.core.repository.SalaRepository;
 import dev.nishiduka.cae.telao.outbound.SalaService;
@@ -15,31 +15,31 @@ public class SalaServiceImpl implements SalaService {
     @Autowired
     private SalaRepository repository;
 
-    public List<SalaDTO> listarTodos() {
+    public List<SalaEntity> listarTodos() {
         return repository.findAll();
     }
 
-    public SalaDTO filtrarPorId(Long id) {
+    public SalaEntity filtrarPorId(Long id) {
         return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Curso nao encontrado"));
     }
 
-    public SalaDTO salvar(SalaDTO salaDTO) {
-        return repository.save(salaDTO);
+    public SalaEntity salvar(SalaEntity salaEntity) {
+        return repository.save(salaEntity);
     }
 
-    public SalaDTO update(SalaDTO salaDTO, Long id) {
-        SalaDTO salvo = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Curso nao encontrado"));
+    public SalaEntity update(SalaEntity salaEntity, Long id) {
+        SalaEntity salvo = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Curso nao encontrado"));
 
-        salvo.setNome(salaDTO.getNome());
-        salvo.setDescricao(salaDTO.getDescricao());
-        salvo.setQtdComputadores(salaDTO.getQtdComputadores());
-        salvo.setQtdAlunos(salaDTO.getQtdAlunos());
+        salvo.setNome(salaEntity.getNome());
+        salvo.setDescricao(salaEntity.getDescricao());
+        salvo.setQtdComputadores(salaEntity.getQtdComputadores());
+        salvo.setQtdAlunos(salaEntity.getQtdAlunos());
 
         return salvar(salvo);
     }
 
     public void delete(Long id) {
-        SalaDTO salvo = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Curso nao encontrado"));
+        SalaEntity salvo = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Curso nao encontrado"));
 
         repository.delete(salvo);
     }

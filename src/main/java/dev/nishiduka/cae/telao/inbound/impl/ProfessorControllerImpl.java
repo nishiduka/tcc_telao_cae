@@ -1,10 +1,11 @@
 package dev.nishiduka.cae.telao.inbound.impl;
 
 import dev.nishiduka.cae.telao.core.domain.dtos.ResponseGenericDTO;
-import dev.nishiduka.cae.telao.core.domain.dtos.ProfessorDTO;
+import dev.nishiduka.cae.telao.core.domain.dtos.ProfessorEntity;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityNotFoundException;
 import dev.nishiduka.cae.telao.inbound.ProfessorController;
 import dev.nishiduka.cae.telao.outbound.ProfessorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,9 +42,9 @@ public class ProfessorControllerImpl implements ProfessorController {
     }
 
     @PostMapping
-    public ResponseEntity<? extends ResponseGenericDTO> criar(@RequestBody ProfessorDTO professorDTO) {
+    public ResponseEntity<? extends ResponseGenericDTO> criar(@Valid @RequestBody ProfessorEntity professorEntity) {
         try {
-            ProfessorDTO data = service.salvar(professorDTO);
+            ProfessorEntity data = service.salvar(professorEntity);
             return ResponseEntity.ok(
                     new ResponseGenericDTO("Professor criado com sucesso", data, true)
             );
@@ -60,9 +61,9 @@ public class ProfessorControllerImpl implements ProfessorController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<? extends ResponseGenericDTO> update(@RequestBody ProfessorDTO professorDTO, @PathVariable Long id) {
+    public ResponseEntity<? extends ResponseGenericDTO> update(@Valid @RequestBody ProfessorEntity professorEntity, @PathVariable Long id) {
         try {
-            ProfessorDTO data = service.update(professorDTO, id);
+            ProfessorEntity data = service.update(professorEntity, id);
 
             return ResponseEntity.ok(
                     new ResponseGenericDTO("Professor atualizado com sucesso", data, true)
