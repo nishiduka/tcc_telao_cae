@@ -26,6 +26,10 @@ public class SalaEntity {
     @Column(name="qtd_alunos")
     private Integer qtdAlunos;
 
+    @ManyToOne
+    @JoinColumn(name = "bloco_id")
+    private BlocoEntity bloco;
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

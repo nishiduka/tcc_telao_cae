@@ -1,5 +1,8 @@
-package dev.nishiduka.cae.telao.core.domain.dtos;
+package dev.nishiduka.cae.telao.core.domain.dtos.requests;
 
+import dev.nishiduka.cae.telao.core.domain.dtos.MateriaEntity;
+import dev.nishiduka.cae.telao.core.domain.dtos.ProfessorEntity;
+import dev.nishiduka.cae.telao.core.domain.dtos.SalaEntity;
 import dev.nishiduka.cae.telao.core.domain.enums.EDiaSemana;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

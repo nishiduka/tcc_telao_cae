@@ -33,8 +33,12 @@ public class SecurityConfiguration {
         httpSecurity.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.authorizeRequests(authorizeRequests ->
                 authorizeRequests
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/salas").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/salas/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/agendamento").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/agendamento/{id}").permitAll()
                         .anyRequest().authenticated()
         );
 

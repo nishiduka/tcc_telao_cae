@@ -1,4 +1,4 @@
-package dev.nishiduka.cae.telao.core.domain.dtos;
+package dev.nishiduka.cae.telao.core.domain.dtos.requests;
 
 import dev.nishiduka.cae.telao.core.domain.enums.EUserRole;
 

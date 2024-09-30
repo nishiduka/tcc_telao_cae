@@ -1,7 +1,7 @@
 package dev.nishiduka.cae.telao.outbound.impl;
 
-import dev.nishiduka.cae.telao.core.domain.dtos.AuthenticationDTO;
-import dev.nishiduka.cae.telao.core.domain.dtos.RegisterDTO;
+import dev.nishiduka.cae.telao.core.domain.dtos.requests.AuthenticationDTO;
+import dev.nishiduka.cae.telao.core.domain.dtos.requests.RegisterDTO;
 import dev.nishiduka.cae.telao.core.domain.dtos.UserEntity;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityAlreadyExistsException;
 import dev.nishiduka.cae.telao.core.infra.security.TokenService;

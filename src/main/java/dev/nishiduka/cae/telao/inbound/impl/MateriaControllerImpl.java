@@ -1,7 +1,7 @@
 package dev.nishiduka.cae.telao.inbound.impl;
 
 import dev.nishiduka.cae.telao.core.domain.dtos.MateriaEntity;
-import dev.nishiduka.cae.telao.core.domain.dtos.ResponseGenericDTO;
+import dev.nishiduka.cae.telao.core.domain.dtos.requests.ResponseGenericDTO;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityNotFoundException;
 import dev.nishiduka.cae.telao.inbound.MateriaController;
 import dev.nishiduka.cae.telao.outbound.MateriaService;

@@ -1,7 +1,7 @@
 package dev.nishiduka.cae.telao.inbound.impl;
 
-import dev.nishiduka.cae.telao.core.domain.dtos.ResponseGenericDTO;
-import dev.nishiduka.cae.telao.core.domain.dtos.AgendamentoRecorrenteDTO;
+import dev.nishiduka.cae.telao.core.domain.dtos.requests.ResponseGenericDTO;
+import dev.nishiduka.cae.telao.core.domain.dtos.requests.AgendamentoRecorrenteDTO;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityAlreadyExistsException;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityNotFoundException;
 import dev.nishiduka.cae.telao.inbound.AgendamentoRecorrenteController;

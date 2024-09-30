@@ -1,6 +1,6 @@
 package dev.nishiduka.cae.telao.outbound.impl;
 
-import dev.nishiduka.cae.telao.core.domain.dtos.AgendamentoRecorrenteDTO;
+import dev.nishiduka.cae.telao.core.domain.dtos.requests.AgendamentoRecorrenteDTO;
 import dev.nishiduka.cae.telao.core.repository.AgendamentoRecorrenteRepository;
 import dev.nishiduka.cae.telao.outbound.AgendamentoService;
 import org.springframework.beans.factory.annotation.Autowired;

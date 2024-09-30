@@ -1,6 +1,6 @@
 package dev.nishiduka.cae.telao.outbound;
 
-import dev.nishiduka.cae.telao.core.domain.dtos.AgendamentoRecorrenteDTO;
+import dev.nishiduka.cae.telao.core.domain.dtos.requests.AgendamentoRecorrenteDTO;
 import org.springframework.stereotype.Service;
 
 @Service

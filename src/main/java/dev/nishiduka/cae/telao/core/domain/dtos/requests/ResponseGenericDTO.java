@@ -1,4 +1,4 @@
-package dev.nishiduka.cae.telao.core.domain.dtos;
+package dev.nishiduka.cae.telao.core.domain.dtos.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
