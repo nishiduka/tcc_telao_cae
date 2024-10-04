@@ -10,10 +10,11 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -26,10 +27,23 @@ public class AuthorizationControllerImpl {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@Valid @RequestBody AuthenticationDTO authentication) {
+    public ResponseEntity<ResponseGenericDTO> login(@Valid @RequestBody AuthenticationDTO authentication) {
         String token = userService.login(authentication);
 
         return ResponseEntity.ok().body(new ResponseGenericDTO("Login efetuado com sucesso!", token, true));
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<ResponseGenericDTO> currentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserEntity currentUser = (UserEntity) authentication.getPrincipal();
+
+        HashMap<String, Object> user = new HashMap<>();
+        user.put("id", currentUser.getId());
+        user.put("nome", currentUser.getNome());
+        user.put("email", currentUser.getLogin());
+
+        return ResponseEntity.ok().body(new ResponseGenericDTO("Dados recuperados com sucesso!", user, true));
     }
 
     @PostMapping("/register")
