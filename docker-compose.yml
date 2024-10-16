@@ -9,15 +9,16 @@ services:
       MYSQL_DATABASE: telao_cae
       MYSQL_USER: user
       MYSQL_PASSWORD: userpassword
-    ports:
-      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./src/main/resources/dump.sql:/docker-entrypoint-initdb.d/dump.sql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - app_network
 
   app:
     build:
@@ -25,12 +26,18 @@ services:
       dockerfile: Dockerfile
     container_name: telao_aplication
     ports:
-      - "8080:8080"
+      - "9090:9090"
     environment:
       SPRING_PROFILES_ACTIVE: docker
     depends_on:
       mysql:
         condition: service_healthy
+    networks:
+      - app_network
 
 volumes:
   mysql_data:
+
+networks:
+  app_network:
+    driver: bridge
