@@ -1,6 +1,6 @@
 package dev.nishiduka.cae.telao.outbound.impl;
 
-import dev.nishiduka.cae.telao.core.domain.dtos.requests.AgendamentoRecorrenteDTO;
+import dev.nishiduka.cae.telao.core.domain.dtos.AgendamentoRecorrenteEntity;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityAlreadyExistsException;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityNotFoundException;
 import dev.nishiduka.cae.telao.core.repository.AgendamentoRecorrenteRepository;
@@ -17,19 +17,16 @@ public class AgendamentoRecorrenteServiceImpl implements AgendamentoRecorrenteSe
     @Autowired
     private AgendamentoRecorrenteRepository repository;
 
-    @Autowired
-    private AgendamentoService agendamentoService;
-
-    public List<AgendamentoRecorrenteDTO> listarTodos() {
+    public List<AgendamentoRecorrenteEntity> listarTodos() {
         return repository.findAll();
     }
 
-    public AgendamentoRecorrenteDTO filtrarPorId(Long id) {
+    public AgendamentoRecorrenteEntity filtrarPorId(Long id) {
         return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Agendamento recorrente nao encontrado"));
     }
 
-    public AgendamentoRecorrenteDTO salvar(AgendamentoRecorrenteDTO agendamento) {
-        Boolean contemConflito = agendamentoService.validarConflitoAgenda(agendamento);
+    public AgendamentoRecorrenteEntity salvar(AgendamentoRecorrenteEntity agendamento) {
+        Boolean contemConflito = repository.validarConflitoAgenda(agendamento);
 
         if(contemConflito) {
             throw new EntityAlreadyExistsException("Conflito de horario");
@@ -38,8 +35,8 @@ public class AgendamentoRecorrenteServiceImpl implements AgendamentoRecorrenteSe
         return repository.save(agendamento);
     }
 
-    public AgendamentoRecorrenteDTO update(AgendamentoRecorrenteDTO agendamento, Long id) {
-        AgendamentoRecorrenteDTO salvo = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Agendamento recorrente nao encontrado"));
+    public AgendamentoRecorrenteEntity update(AgendamentoRecorrenteEntity agendamento, Long id) {
+        AgendamentoRecorrenteEntity salvo = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Agendamento recorrente nao encontrado"));
 
         if(repository.validarConflitoAgendaIgnorandoID(agendamento)) {
             throw new EntityAlreadyExistsException("Conflito de horario");
@@ -56,7 +53,7 @@ public class AgendamentoRecorrenteServiceImpl implements AgendamentoRecorrenteSe
     }
 
     public void delete(Long id) {
-        AgendamentoRecorrenteDTO salvo = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Agendamento recorrente nao encontrado"));
+        AgendamentoRecorrenteEntity salvo = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Agendamento recorrente nao encontrado"));
 
         repository.delete(salvo);
     }
