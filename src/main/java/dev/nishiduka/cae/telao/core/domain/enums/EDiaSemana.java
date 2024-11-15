@@ -11,32 +11,27 @@ import java.util.Locale;
 @Getter
 @AllArgsConstructor
 public enum EDiaSemana {
-    SEGUNDA("Segunda"),
-    TERCA("Terça"),
-    QUARTA("Quarta"),
-    QUINTA("Quinta"),
-    SEXTA("Sexta"),
-    SABADO("Sábado"),
-    DOMINGO("Domingo");
+    SEGUNDA("segunda-feira"),
+    TERCA("terça-feira"),
+    QUARTA("quarta-feira"),
+    QUINTA("quinta-feira"),
+    SEXTA("sexta-feira"),
+    SABADO("sábado"),
+    DOMINGO("domingo");
 
     private String dia;
 
     public static EDiaSemana fromLocalDateTime(LocalDateTime horario) {
         String nomeDoDia = horario.getDayOfWeek().getDisplayName(TextStyle.FULL, new Locale("pt", "BR"));
-
-        return normalizarDiaSemana(nomeDoDia);
+        return fromDescricao(nomeDoDia);
     }
 
-    private static EDiaSemana normalizarDiaSemana(String dia)  {
-        if(dia == "segunda-feira") return EDiaSemana.SEGUNDA;
-        if(dia == "terça-feira") return EDiaSemana.TERCA;
-        if(dia == "quarta-feira") return EDiaSemana.QUARTA;
-        if(dia == "quinta-feira") return EDiaSemana.QUINTA;
-        if(dia == "sexta-feira") return EDiaSemana.SEXTA;
-        if(dia == "sábado") return EDiaSemana.SABADO;
-        if(dia == "doming") return EDiaSemana.DOMINGO;
-
-        return null;
+    public static EDiaSemana fromDescricao(String descricao) {
+        for (EDiaSemana dia : EDiaSemana.values()) {
+            if (dia.getDia().equalsIgnoreCase(descricao)) {
+                return dia;
+            }
+        }
+        throw new IllegalArgumentException("Dia da semana não encontrado: " + descricao);
     }
-
 }
