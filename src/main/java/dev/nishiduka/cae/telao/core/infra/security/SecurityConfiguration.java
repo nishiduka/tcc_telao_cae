@@ -57,7 +57,7 @@ public class SecurityConfiguration {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true); // Se necessário para credenciais (cookies)
-        config.addAllowedOrigin("https://agendif.nishiduka.dev"); // Domínio permitido
+        config.addAllowedOrigin("*"); // Domínio permitido
         config.addAllowedHeader("*"); // Permitir todos os cabeçalhos
         config.addAllowedMethod("*"); // Permitir todos os métodos
         source.registerCorsConfiguration("/**", config);
