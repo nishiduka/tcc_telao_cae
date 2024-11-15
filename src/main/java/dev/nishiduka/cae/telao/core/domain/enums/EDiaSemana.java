@@ -24,7 +24,7 @@ public enum EDiaSemana {
     public static EDiaSemana fromLocalDateTime(LocalDateTime horario) {
         String nomeDoDia = horario.getDayOfWeek().getDisplayName(TextStyle.FULL, new Locale("pt", "BR"));
 
-        return EDiaSemana.valueOf(nomeDoDia.replace("-feira", ""));
+        return EDiaSemana.valueOf(nomeDoDia.replace("-feira", "").toUpperCase());
     }
 
 }
