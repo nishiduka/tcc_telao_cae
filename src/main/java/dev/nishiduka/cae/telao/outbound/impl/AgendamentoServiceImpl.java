@@ -28,7 +28,7 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 
     public List<AgendamentoDTO> listarAgendamentosSemana(int semana) {
         List<AgendamentoRecorrenteEntity> recorrente = recorrenteRepository.findAll();
-        List<AgendamentoPontualEntity> pontual = pontualRepository.findBySemana(semana);
+        List<AgendamentoPontualEntity> pontual = pontualRepository.findBySemana(semana - 1);
 
         return mesclarAgendamentos(recorrente, pontual);
     }
@@ -36,7 +36,7 @@ public class AgendamentoServiceImpl implements AgendamentoService {
     @Override
     public List<AgendamentoDTO> listarAgendamentosSalaSemana(Long salaId, int semana) {
         List<AgendamentoRecorrenteEntity> recorrente = recorrenteRepository.findBySalaId(salaId);
-        List<AgendamentoPontualEntity> pontual = pontualRepository.findBySalaIdAndSemana(salaId, semana);
+        List<AgendamentoPontualEntity> pontual = pontualRepository.findBySalaIdAndSemana(salaId, semana - 1);
 
         return mesclarAgendamentos(recorrente, pontual);
     }
