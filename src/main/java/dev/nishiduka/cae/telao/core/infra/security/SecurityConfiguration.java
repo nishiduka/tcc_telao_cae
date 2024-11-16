@@ -44,6 +44,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/agendamento").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/agendamento/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/agendamentos/semana/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/agendamentos/dia").permitAll()
                         .anyRequest()
                         .authenticated()
         );
