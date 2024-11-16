@@ -28,7 +28,7 @@ public interface AgendamentoPontualRepository extends JpaRepository<AgendamentoP
             "AND a.horarioFim > :#{#agendamento.horarioInicio})")
     List<AgendamentoPontualEntity> buscarAgendamentoPorSalaHorario(AgendamentoPontualEntity agendamento);
 
-    @Query("FROM AgendamentoPontualEntity e WHERE WEEK(e.data) = :semana AND e.sala.id = :id")
+    @Query(value = "SELECT * FROM agendamento_pontual e WHERE WEEK(e.data) = :semana AND e.sala_id = :id", nativeQuery = true)
     List<AgendamentoPontualEntity> findBySalaIdAndSemana(Long id, int semana);
 
     @Query("FROM AgendamentoPontualEntity e WHERE WEEK(e.data) = :semana")
