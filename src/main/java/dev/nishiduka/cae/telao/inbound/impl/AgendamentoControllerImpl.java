@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -22,6 +24,19 @@ public class AgendamentoControllerImpl implements AgendamentoController {
 
     @Autowired
     private AgendamentoService agendamentoService;
+
+    @Override
+    public ResponseEntity<? extends ResponseGenericDTO> listarAgendamentosDia(@RequestParam LocalDate data) {
+        try {
+            List<AgendamentoDTO> listagem = agendamentoService.listarAgendamentosDia(data.atStartOfDay());
+            return ResponseEntity.ok(
+                    new ResponseGenericDTO("Listagem realizada com sucesso", listagem, true)
+            );
+        } catch(Exception e) {
+            log.error("listarAgendamentosDia::: salaId {}  semana {}", data);
+            return ResponseEntity.badRequest().body(new ResponseGenericDTO("Listagem com erro "+ e, null, true));
+        }
+    }
 
     @GetMapping("/semana/{semana}")
     public ResponseEntity<? extends ResponseGenericDTO> listarAgendamentos(@PathVariable int semana) {

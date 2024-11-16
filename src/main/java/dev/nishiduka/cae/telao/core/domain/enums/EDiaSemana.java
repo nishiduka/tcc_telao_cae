@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.Locale;
@@ -22,6 +23,11 @@ public enum EDiaSemana {
     private String dia;
 
     public static EDiaSemana fromLocalDateTime(LocalDateTime horario) {
+        String nomeDoDia = horario.getDayOfWeek().getDisplayName(TextStyle.FULL, new Locale("pt", "BR"));
+        return fromDescricao(nomeDoDia);
+    }
+
+    public static EDiaSemana fromLocalDate(LocalDate horario) {
         String nomeDoDia = horario.getDayOfWeek().getDisplayName(TextStyle.FULL, new Locale("pt", "BR"));
         return fromDescricao(nomeDoDia);
     }

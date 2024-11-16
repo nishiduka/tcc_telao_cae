@@ -1,6 +1,7 @@
 package dev.nishiduka.cae.telao.core.repository;
 
 import dev.nishiduka.cae.telao.core.domain.dtos.AgendamentoRecorrenteEntity;
+import dev.nishiduka.cae.telao.core.domain.enums.EDiaSemana;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,4 +22,6 @@ public interface AgendamentoRecorrenteRepository extends JpaRepository<Agendamen
 
     @Query("FROM AgendamentoRecorrenteEntity a WHERE a.sala.id = :salaId")
     List<AgendamentoRecorrenteEntity> findBySalaId(@Param("salaId") Long salaId);
+
+    List<AgendamentoRecorrenteEntity> findByDiaSemana(EDiaSemana diaExtenso);
 }

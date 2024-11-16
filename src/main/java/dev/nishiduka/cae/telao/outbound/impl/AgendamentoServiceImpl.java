@@ -3,7 +3,7 @@ package dev.nishiduka.cae.telao.outbound.impl;
 import dev.nishiduka.cae.telao.core.domain.dtos.AgendamentoDTO;
 import dev.nishiduka.cae.telao.core.domain.dtos.AgendamentoPontualEntity;
 import dev.nishiduka.cae.telao.core.domain.dtos.AgendamentoRecorrenteEntity;
-import dev.nishiduka.cae.telao.core.domain.dtos.SalaEntity;
+import dev.nishiduka.cae.telao.core.domain.enums.EDiaSemana;
 import dev.nishiduka.cae.telao.core.repository.AgendamentoPontualRepository;
 import dev.nishiduka.cae.telao.core.repository.AgendamentoRecorrenteRepository;
 import dev.nishiduka.cae.telao.outbound.AgendamentoService;
@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,15 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 
     @Autowired
     private final AgendamentoPontualRepository pontualRepository;
+
+    public List<AgendamentoDTO> listarAgendamentosDia(LocalDateTime dia) {
+        EDiaSemana diaExtenso = EDiaSemana.fromLocalDateTime(dia);
+
+        List<AgendamentoRecorrenteEntity> recorrente = recorrenteRepository.findByDiaSemana(diaExtenso);
+        List<AgendamentoPontualEntity> pontual = pontualRepository.findByData(dia);
+
+        return mesclarAgendamentos(recorrente, pontual);
+    }
 
     public List<AgendamentoDTO> listarAgendamentosSemana(int semana) {
         List<AgendamentoRecorrenteEntity> recorrente = recorrenteRepository.findAll();
