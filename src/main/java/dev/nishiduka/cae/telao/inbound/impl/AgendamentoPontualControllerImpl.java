@@ -1,10 +1,12 @@
 package dev.nishiduka.cae.telao.inbound.impl;
 
+import dev.nishiduka.cae.telao.core.domain.dtos.AgendamentoPontualEntity;
 import dev.nishiduka.cae.telao.core.domain.dtos.requests.ResponseGenericDTO;
-import dev.nishiduka.cae.telao.core.domain.dtos.AgendamentoRecorrenteEntity;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityAlreadyExistsException;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityNotFoundException;
+import dev.nishiduka.cae.telao.inbound.AgendamentoPontualController;
 import dev.nishiduka.cae.telao.inbound.AgendamentoRecorrenteController;
+import dev.nishiduka.cae.telao.outbound.AgendamentoPontualService;
 import dev.nishiduka.cae.telao.outbound.AgendamentoRecorrenteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/agendamentos-recorrentes")
-public class AgendamentoRecorrenteControllerImpl implements AgendamentoRecorrenteController {
+@RequestMapping("/api/agendamentos-pontuais")
+public class AgendamentoPontualControllerImpl implements AgendamentoPontualController {
 
     @Autowired
-    private AgendamentoRecorrenteService service;
+    private AgendamentoPontualService service;
 
     @GetMapping
     public ResponseEntity<? extends ResponseGenericDTO> listar() {
@@ -43,9 +45,9 @@ public class AgendamentoRecorrenteControllerImpl implements AgendamentoRecorrent
     }
 
     @PostMapping
-    public ResponseEntity<? extends ResponseGenericDTO> criar(@Valid @RequestBody AgendamentoRecorrenteEntity agendamento) {
+    public ResponseEntity<? extends ResponseGenericDTO> criar(@Valid @RequestBody AgendamentoPontualEntity agendamento) {
         try {
-            AgendamentoRecorrenteEntity curso = service.salvar(agendamento);
+            AgendamentoPontualEntity curso = service.salvar(agendamento);
             return ResponseEntity.ok(
                     new ResponseGenericDTO("Agendamento criado com sucesso", curso, true)
             );
@@ -66,9 +68,9 @@ public class AgendamentoRecorrenteControllerImpl implements AgendamentoRecorrent
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<? extends ResponseGenericDTO> update(@Valid @RequestBody AgendamentoRecorrenteEntity agendamento, @PathVariable Long id) {
+    public ResponseEntity<? extends ResponseGenericDTO> update(@Valid @RequestBody AgendamentoPontualEntity agendamento, @PathVariable Long id) {
         try {
-            AgendamentoRecorrenteEntity curso = service.update(agendamento, id);
+            AgendamentoPontualEntity curso = service.update(agendamento, id);
 
             return ResponseEntity.ok(
                     new ResponseGenericDTO("Agendamento atualizado com sucesso", curso, true)

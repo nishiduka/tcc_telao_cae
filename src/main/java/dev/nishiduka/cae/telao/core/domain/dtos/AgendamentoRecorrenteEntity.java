@@ -1,8 +1,5 @@
-package dev.nishiduka.cae.telao.core.domain.dtos.requests;
+package dev.nishiduka.cae.telao.core.domain.dtos;
 
-import dev.nishiduka.cae.telao.core.domain.dtos.MateriaEntity;
-import dev.nishiduka.cae.telao.core.domain.dtos.ProfessorEntity;
-import dev.nishiduka.cae.telao.core.domain.dtos.SalaEntity;
 import dev.nishiduka.cae.telao.core.domain.enums.EDiaSemana;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,7 +17,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Table(name = "agendamento_recorrente")
-public class AgendamentoRecorrenteDTO {
+public class AgendamentoRecorrenteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

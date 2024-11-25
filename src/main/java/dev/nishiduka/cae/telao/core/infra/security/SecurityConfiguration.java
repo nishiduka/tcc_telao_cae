@@ -43,7 +43,10 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/salas/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/agendamento").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/agendamento/{id}").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/agendamentos/semana/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/agendamentos/dia").permitAll()
+                        .anyRequest()
+                        .authenticated()
         );
 
         httpSecurity.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
@@ -57,7 +60,8 @@ public class SecurityConfiguration {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true); // Se necessário para credenciais (cookies)
-        config.addAllowedOrigin("http://localhost:5173"); // Domínio permitido
+        config.addAllowedOrigin("https://agendif.nishiduka.dev"); // Domínio permitido
+        config.addAllowedOrigin("http://localhost:5173/");
         config.addAllowedHeader("*"); // Permitir todos os cabeçalhos
         config.addAllowedMethod("*"); // Permitir todos os métodos
         source.registerCorsConfiguration("/**", config);
