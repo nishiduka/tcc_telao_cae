@@ -49,7 +49,7 @@ public class AgendamentoRecorrenteServiceImpl implements AgendamentoRecorrenteSe
         salvo.setHoraInicio(agendamento.getHoraInicio());
         salvo.setHoraFim(agendamento.getHoraFim());
 
-        return salvar(salvo);
+        return repository.save(salvo);
     }
 
     public void delete(Long id) {
