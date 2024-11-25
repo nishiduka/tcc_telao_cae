@@ -12,7 +12,7 @@ public interface AgendamentoRecorrenteRepository extends JpaRepository<Agendamen
     @Query("SELECT CASE WHEN COUNT (a) > 0 THEN true ELSE false END FROM AgendamentoRecorrenteDTO a WHERE a.diaSemana = :#{#agendamento.diaSemana} AND a.sala.id = :#{#agendamento.sala.id} AND ((a.horaInicio < :#{#agendamento.horaFim} AND a.horaFim > :#{#agendamento.horaInicio}))")
     boolean validarConflitoAgenda(AgendamentoRecorrenteDTO agendamento);
 
-    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM AgendamentoRecorrenteDTO a WHERE a.diaSemana = :#{#agendamento.diaSemana} AND a.sala.id = :#{#agendamento.sala.id} AND ((a.horaInicio < :#{#agendamento.horaFim} AND a.horaFim > :#{#agendamento.horaInicio}))")
+    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM AgendamentoRecorrenteDTO a WHERE a.id != :#{#agendamento.id} AND a.diaSemana = :#{#agendamento.diaSemana} AND a.sala.id = :#{#agendamento.sala.id} AND ((a.horaInicio < :#{#agendamento.horaFim} AND a.horaFim > :#{#agendamento.horaInicio}))")
     boolean validarConflitoAgendaIgnorandoID(AgendamentoRecorrenteDTO agendamento);
 
     @Query("FROM AgendamentoRecorrenteDTO a WHERE a.id != :#{#agendamento.id} AND a.diaSemana = :#{#agendamento.diaSemana} AND a.sala.id = :#{#agendamento.sala.id} AND ((a.horaInicio < :#{#agendamento.horaFim} AND a.horaFim > :#{#agendamento.horaInicio}))")
