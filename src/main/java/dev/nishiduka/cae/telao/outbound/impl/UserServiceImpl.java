@@ -11,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -41,6 +44,40 @@ public class UserServiceImpl implements UserService {
         String encryptedPassword = new BCryptPasswordEncoder().encode(register.password());
 
         return userRepository.save(new UserEntity(null, register.login(), encryptedPassword, register.nome(), register.role()));
+    }
+
+    @Override
+    public List<UserEntity> listarUsuario() {
+        return userRepository.findAll().stream().map(item -> {
+            return new UserEntity(item.getId(), item.getLogin(), null, item.getNome(), item.getRole());
+        }).toList();
+    }
+
+    @Override
+    public UserEntity buscarUsuario(Long id) {
+        UserEntity user = userRepository.findById(id).orElseThrow(() -> new EntityAlreadyExistsException("Usuário não encontrado"));
+        return new UserEntity(user.getId(), user.getLogin(), null, user.getNome(), user.getRole());
+    }
+
+    @Override
+    public UserEntity atualizarUsuario(Long id, RegisterDTO register) {
+        UserDetails user = userRepository.findByLogin(register.login());
+
+        if(user == null) {
+            throw new EntityAlreadyExistsException("Usuário não encontrado");
+        }
+
+        String encryptedPassword = user.getPassword();
+        if(register.password() != null && !register.password().isEmpty()) {
+            encryptedPassword = new BCryptPasswordEncoder().encode(register.password());
+        }
+
+        return userRepository.save(new UserEntity(id, register.login(), encryptedPassword, register.nome(), register.role()));
+    }
+
+    @Override
+    public void remover(Long id) {
+        userRepository.deleteById(id);
     }
 
 }

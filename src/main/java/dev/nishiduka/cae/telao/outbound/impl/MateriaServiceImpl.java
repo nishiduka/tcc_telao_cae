@@ -1,5 +1,6 @@
 package dev.nishiduka.cae.telao.outbound.impl;
 
+import dev.nishiduka.cae.telao.core.domain.dtos.CursoEntity;
 import dev.nishiduka.cae.telao.core.domain.dtos.MateriaEntity;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityNotFoundException;
 import dev.nishiduka.cae.telao.core.repository.MateriaRepository;
@@ -28,12 +29,16 @@ public class MateriaServiceImpl implements MateriaService {
     }
 
     public MateriaEntity update(MateriaEntity cursoDTO, Long id) {
-        MateriaEntity curso = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Materia nao encontrado"));
+        MateriaEntity materia = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Materia nao encontrado"));
 
-        curso.setNome(cursoDTO.getNome());
-        curso.setSigla(cursoDTO.getSigla());
+        materia.setNome(cursoDTO.getNome());
+        materia.setSigla(cursoDTO.getSigla());
 
-        return salvar(curso);
+        CursoEntity curso = new CursoEntity();
+        curso.setId(cursoDTO.getCurso().getId());
+        materia.setCurso(curso);
+
+        return salvar(materia);
     }
 
     public void delete(Long id) {

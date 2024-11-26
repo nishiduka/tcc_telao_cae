@@ -46,11 +46,41 @@ public class AuthorizationControllerImpl {
         return ResponseEntity.ok().body(new ResponseGenericDTO("Dados recuperados com sucesso!", user, true));
     }
 
+    @GetMapping("/listagem")
+    public ResponseEntity<ResponseGenericDTO> listarUsuario() {
+        return ResponseEntity.ok().body(new ResponseGenericDTO("Dados recuperados com sucesso!", userService.listarUsuario(), true));
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<ResponseGenericDTO> retriveUser(@PathVariable Long id) {
+        return ResponseEntity.ok().body(new ResponseGenericDTO("Dados recuperados com sucesso!", userService.buscarUsuario(id), true));
+    }
+
     @PostMapping("/register")
     public ResponseEntity<ResponseGenericDTO> register(@Valid @RequestBody RegisterDTO register) {
         try {
             UserEntity user = userService.criarUsuario(register);
-            return ResponseEntity.ok().body(new ResponseGenericDTO("Cadastro finalizado com sucesso!", user, true));
+            return ResponseEntity.ok().body(new ResponseGenericDTO("Cadastro realizado com sucesso!", user, true));
+        } catch(EntityAlreadyExistsException ex) {
+            return ResponseEntity.badRequest().body(new ResponseGenericDTO(ex.getMessage(), null, false));
+        }
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ResponseGenericDTO> update(@Valid @RequestBody RegisterDTO register, @PathVariable Long id) {
+        try {
+            UserEntity user = userService.atualizarUsuario(id, register);
+            return ResponseEntity.ok().body(new ResponseGenericDTO("Cadastro atualizado com sucesso!", user, true));
+        } catch(EntityAlreadyExistsException ex) {
+            return ResponseEntity.badRequest().body(new ResponseGenericDTO(ex.getMessage(), null, false));
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<ResponseGenericDTO> remove(@PathVariable Long id) {
+        try {
+            userService.remover(id);
+            return ResponseEntity.ok().body(new ResponseGenericDTO("Usuario removido com sucesso!", null, true));
         } catch(EntityAlreadyExistsException ex) {
             return ResponseEntity.badRequest().body(new ResponseGenericDTO(ex.getMessage(), null, false));
         }

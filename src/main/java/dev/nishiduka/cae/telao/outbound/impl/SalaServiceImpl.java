@@ -1,5 +1,6 @@
 package dev.nishiduka.cae.telao.outbound.impl;
 
+import dev.nishiduka.cae.telao.core.domain.dtos.BlocoEntity;
 import dev.nishiduka.cae.telao.core.domain.dtos.SalaEntity;
 import dev.nishiduka.cae.telao.core.domain.exceptions.EntityNotFoundException;
 import dev.nishiduka.cae.telao.core.repository.SalaRepository;
@@ -34,6 +35,11 @@ public class SalaServiceImpl implements SalaService {
         salvo.setDescricao(salaEntity.getDescricao());
         salvo.setQtdComputadores(salaEntity.getQtdComputadores());
         salvo.setQtdAlunos(salaEntity.getQtdAlunos());
+
+        BlocoEntity bloco = new BlocoEntity();
+        bloco.setId(salaEntity.getBloco().getId());
+
+        salvo.setBloco(bloco);
 
         return salvar(salvo);
     }
